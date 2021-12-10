@@ -141,7 +141,6 @@ class Manager(User):
                     total += num[0]
                 
                 average = total/len(find_average)
-            print(total)
 
             if row == []:
                 print('\nno reports found')
