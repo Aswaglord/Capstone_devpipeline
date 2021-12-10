@@ -1,5 +1,6 @@
 from user import User
 import sqlite3
+import csv
 import bcrypt
 
 connection = sqlite3.connect('competency_tracker.db')
@@ -53,7 +54,7 @@ class Manager(User):
                     print('\nerror, command not found. returning to main menu')
                 
 
-    # done
+
     def view_user_comp(self):
 
         run = True
@@ -80,7 +81,7 @@ class Manager(User):
             elif search_again != 'Y':
                 print('\nerror, command not found. returning to main menu')
 
-    # done
+
     def view_users_comp(self):
         
         run = True
@@ -131,13 +132,22 @@ class Manager(User):
 
             row = cursor.execute('SELECT level, report  FROM competency_results WHERE person_id=? AND comp_id=?', (user_id + 1, comp_id + 1)).fetchall()
 
+            find_average = cursor.execute('SELECT score FROM assessment_results WHERE person_id=?',(user_id + 1,)).fetchall()
+
+            total = 0
+            if find_average != []:
+                for num in find_average:
+                    total += num[0]
+                
+                average = total/len(find_average)
+
             if row == []:
                 print('\nno reports found')
             else:
                 print(f'\nCOMPETENCY: {comp_list[int(comp_id)][1]}')
                 print(f'USER:       {users[int(user_id)][1]} {users[int(user_id)][2]}\n')
-                print('Score   report    average')
-                print(f'{row[0][0]:<7} {row[0][1]} ')
+                print('Score  average    report')
+                print(f'{row[0][0]:<7}{average:<10} {row[0][1]} ')
 
             print('\npress <Y> to search again, press <ENTER> to return to main menu')
             search_again = input().upper()
@@ -178,7 +188,7 @@ class Manager(User):
             elif search_again != 'Y':
                 print('\nerror, command not found. returning to main menu')
 
-    # done
+
     def add_user(self):
 
         run = True
@@ -211,7 +221,7 @@ class Manager(User):
             elif search_again != 'Y':
                 print('\nerror, command not found. returning to main menu')
 
-    # done
+
     def add_competency(self):
         run = True
         while run:
@@ -234,7 +244,7 @@ class Manager(User):
             elif search_again != 'Y':
                 print('\nerror, command not found. returning to main menu')
 
-    # done
+
     def add_assessment(self):
         run = True
         while run:
@@ -262,7 +272,6 @@ class Manager(User):
             elif search_again != 'Y':
                 print('\nerror, command not found. returning to main menu')
 
-    # 
 
     def add_assessment_result(self):
 

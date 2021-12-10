@@ -1,16 +1,19 @@
-from employee import Employee
-from manager import Manager
-from user import User
+from user import *
+from manager import *
+from employee import *
 import sqlite3
 import bcrypt
-
-
-
-
 
 connection = sqlite3.connect('competency_tracker.db')
 cursor = connection.cursor()
 
+def create_schema():
+    with open('schema.sql') as my_file:
+        sqlfile = my_file.read()
+        cursor.executescript(sqlfile)
+    connection.commit()
+
+create_schema()
 
 def start_program():
     
@@ -26,13 +29,16 @@ def start_program():
         salt = b'$2b$12$hXV7K881YN/7dmizgNoyL.'
 
         hashed = bcrypt.hashpw(password, salt)
+        str_hashed = hashed.decode('utf-8')
 
-        try_user = User(username, hashed)
+        try_user = User(username, str_hashed)
 
         if try_user.check_credentials():
             credentials_incorrect = False
-            find_type_user = cursor.execute('SELECT first_name, last_name, user_type FROM Users WHERE username=? AND password=?',(username, hashed)).fetchone()
+            find_type_user = cursor.execute('SELECT first_name, last_name, user_type FROM Users WHERE username=? AND password=?',(username, str_hashed,)).fetchone()
+
             menu = True
+            
             print(f'\nWelcome, {find_type_user[0]} {find_type_user[1]}')
             while menu:
                 if find_type_user[2] == 'Manager':

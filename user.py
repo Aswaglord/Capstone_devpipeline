@@ -18,9 +18,8 @@ class User:
         rows = cursor.execute('SELECT username, password FROM Users').fetchall()
 
         for row in rows:
-
+            print(type(row[1]))
             if self.username == row[0] and self.password == row[1]:
-                
                 return True
         return False
 

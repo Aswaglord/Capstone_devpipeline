@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS assessment_results (
     asess_result_id INTEGER PRIMARY KEY AUTOINCREMENT,
     assessment_id INTEGER,
     person_id INTEGER,
-    score TEXT,
+    score INTEGER,
     feedback TEXT,
     completed_date TEXT,
     FOREIGN KEY (assessment_id)
@@ -85,13 +85,13 @@ VALUES (1, 1, 4,'This is a report of how well a user is doing on this competency
 (1, 1, 4,'This is a report of how well a user is doing on this competency.');
 
 INSERT INTO assessment_results (assessment_id, person_id, score, feedback, completed_date)
-VALUES (1, 1, '10/10','this is where we give feedback on the particular assessment','03-01-2020'),
-(2, 1, '15/15','this is where we give feedback on the particular assessment','03-01-2020'),
-(3, 1, '30/30','this is where we give feedback on the particular assessment','03-01-2020'),
-(4, 1, '8/8','this is where we give feedback on the particular assessment','03-01-2020'),
-(1, 2, '6/10','this is where we give feedback on the particular assessment','03-01-2020'),
-(2, 2, '10/15','this is where we give feedback on the particular assessment','03-01-2020'),
-(3, 2, '20/30','this is where we give feedback on the particular assessment','03-01-2020');
+VALUES (1, 1, 3,'this is where we give feedback on the particular assessment','03-01-2020'),
+(2, 1, 2,'this is where we give feedback on the particular assessment','03-01-2020'),
+(3, 1, 3,'this is where we give feedback on the particular assessment','03-01-2020'),
+(4, 1, 1,'this is where we give feedback on the particular assessment','03-01-2020'),
+(1, 2, 4,'this is where we give feedback on the particular assessment','03-01-2020'),
+(2, 2, 4,'this is where we give feedback on the particular assessment','03-01-2020'),
+(3, 2, 3,'this is where we give feedback on the particular assessment','03-01-2020');
 
 
 
