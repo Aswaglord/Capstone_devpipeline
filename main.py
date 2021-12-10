@@ -13,7 +13,7 @@ def create_schema():
         cursor.executescript(sqlfile)
     connection.commit()
 
-create_schema()
+# create_schema()
 
 def start_program():
     
