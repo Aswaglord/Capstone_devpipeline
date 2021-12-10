@@ -132,14 +132,16 @@ class Manager(User):
 
             row = cursor.execute('SELECT level, report  FROM competency_results WHERE person_id=? AND comp_id=?', (user_id + 1, comp_id + 1)).fetchall()
 
-            find_average = cursor.execute('SELECT score FROM assessment_results WHERE person_id=?',(user_id + 1,)).fetchall()
+            find_average = cursor.execute('SELECT score FROM assessment_results WHERE person_id=? AND assessment_id=?',(user_id + 1, comp_id + 1)).fetchall()
 
             total = 0
             if find_average != []:
                 for num in find_average:
+                    print(num[0])
                     total += num[0]
                 
                 average = total/len(find_average)
+            print(total)
 
             if row == []:
                 print('\nno reports found')
@@ -664,3 +666,6 @@ What would you like to update:
                 cursor.execute(insert_sql,row)
                 connection.commit()
         print('\nFILE IMPORTED SUCCESSFULLY!')
+
+manager = Manager('d','d')
+manager.user_report()
